@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+<script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+<script type="text/javascript" charset="utf-8">
+    
+var ac;
+
+var pgr = false;
+function onBodyLoad() {
+document.addEventListener("deviceready", onDeviceReady, false);
+}
+function onDeviceReady() {
+
+ac = document.getElementById('accelInfo');
+
+pgr = true;
+}
+function getAcceleration() {
+if (pgr == true) {
+
+ac.innerHTML = "";
+
+navigator.accelerometer.getCurrentAcceleration(
+onAccelSuccess, onAccelFailure);
+} else {
+alert("Espera por favor,\nPhoneGap no está listo.");
+}
+}
+function onAccelSuccess(accel) {
+
+var d = new Date(accel.timestamp);
+
+ac.innerHTML = "<b>Datos actuales del acelerómetro</b><hr />X: " +
+accel.x + "<br />Y: " + accel.y + "<br />Z: " +
+accel.z + "<br />Fecha y hora:<br />" + d.toLocaleString() +
+"<hr />Tap en el botón para actualizar.";
+}
+function onAccelFailure() {
+alert("Accelerometer error!");
+}
+
+
+function goToURL(val){
+location.href = val;
+}
+
+</script>
+
+</script>
+</head>
+<body onload="onBodyLoad()">
+<h1>Acelerometro 10-1</h1>
+<p style="font-size: 25px;">Esta es una aplicación de PhoneGap que muestra los datos del acelerómetro usando la API Acelerómetro.</p>
+<p><input type="button"value="Refrescar la orientation" onclick="getAcceleration();" style="width: 100%;">
+</p>
+<p id="accelInfo" style="font-size: 20px;">Nothing to see here (yet),
+click the button.</p>
+
+<button ONCLICK="javascript:goToURL('segunda.html')" style="width: 100%;">Version 2.0</button>
+
+</body>
+</html>
